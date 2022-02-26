@@ -9,6 +9,7 @@ namespace WarofArmies.Classes
     public class Army
     {
         public List<Soldier> soldiers = new List<Soldier>();
+        public double totalHealth = 0;
         public Army enemy;
         private static Random rand = null;
 
@@ -32,6 +33,15 @@ namespace WarofArmies.Classes
             foreach (var soldier in soldiers)
             {
                 soldier.attackToEnemy();
+            }
+        }
+
+        public void calculateTotalHealth()
+        {
+            totalHealth = 0;
+            foreach (var soldier in soldiers)
+            {
+                totalHealth += soldier.health;
             }
         }
 

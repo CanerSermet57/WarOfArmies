@@ -111,7 +111,7 @@
             // 
             // timer1
             // 
-            this.timer1.Interval = 25;
+            this.timer1.Interval = 250;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // label3

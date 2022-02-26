@@ -12,15 +12,14 @@ namespace WarofArmies.Classes
 
         private Army redArmy;        
         private Army blueArmy;
-        Label labeltext;
+        Label labelwin;
         Weapon sword = DerivedClasses.Sword.giveInstance();
         Armor bronzeArmor = DerivedClasses.BronzeArmor.giveInstance();
+        System.Windows.Forms.Form.ControlCollection formControls = (System.Windows.Forms.Form.ControlCollection)Application.OpenForms["Form1"].Controls;
 
         public Game()
         {
-            
-            labeltext =(Label) Application.OpenForms["Form1"].Controls["label3"];           
-
+            labelwin = (Label) formControls["label3"];
         }
         public void createArmy()
         {
@@ -36,12 +35,33 @@ namespace WarofArmies.Classes
         {
             if (!isFightOver())
             {
+                ProgressBar progresbar1 = (ProgressBar)formControls["progressBar1"];
+                ProgressBar progresbar2 = (ProgressBar)formControls["progressBar2"];                
                 blueArmy.AttackAll();
                 redArmy.AttackAll();
+                blueArmy.calculateTotalHealth();
+                redArmy.calculateTotalHealth();
+                if (blueArmy.soldiers.Count != 0)
+                {
+                    progresbar1.Value = Convert.ToInt32(blueArmy.totalHealth / blueArmy.soldiers.Count);
+                }
+                else
+                {
+                    progresbar1.Value = 0;
+                }
+                if (redArmy.soldiers.Count != 0)
+                {
+                    progresbar2.Value = Convert.ToInt32(redArmy.totalHealth / redArmy.soldiers.Count);
+                }
+                else
+                {
+                    progresbar2.Value = 0;
+                }
+
             }
             else
             {
-                startWar();
+                //startWar();
             }
         }
 
@@ -89,11 +109,11 @@ namespace WarofArmies.Classes
 
         public void winnerArmyShow()
         {
-            labeltext.Text = "";
-            labeltext.Text += "Winner is ";
-            labeltext.Text += winnerArmyDetection();
-            labeltext.Text += " Alive Soldiers Count : ";
-            labeltext.Text += winnerArmyCount();
+            labelwin.Text = "";
+            labelwin.Text += "Winner is ";
+            labelwin.Text += winnerArmyDetection();
+            labelwin.Text += " Alive Soldiers Count : ";
+            labelwin.Text += winnerArmyCount();
         }
 
 
